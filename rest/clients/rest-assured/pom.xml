@@ -27,7 +27,6 @@
 
     <name>Ingest Rest-Assured Client</name>
 
-    <groupId>com.connexta.ingest</groupId>
     <artifactId>ingest-api-rest-assured-client</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
@@ -79,56 +78,6 @@
             <groupId>com.squareup.okio</groupId>
             <artifactId>okio</artifactId>
         </dependency>
-
-
-        <!--            &lt;!&ndash; test dependencies &ndash;&gt;-->
-        <!--            <dependency>-->
-        <!--                <groupId>junit</groupId>-->
-        <!--                <artifactId>junit</artifactId>-->
-        <!--                <version>${junit-version}</version>-->
-        <!--                <scope>test</scope>-->
-        <!--            </dependency>-->
-
-
-        <!--        -->
-        <!--        <dependency>-->
-        <!--            <groupId>org.immutables</groupId>-->
-        <!--            <artifactId>value</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.slf4j</groupId>-->
-        <!--            <artifactId>slf4j-api</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>com.google.guava</groupId>-->
-        <!--            <artifactId>guava</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>javax.validation</groupId>-->
-        <!--            <artifactId>validation-api</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>com.fasterxml.jackson.datatype</groupId>-->
-        <!--            <artifactId>jackson-datatype-jsr310</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.openapitools</groupId>-->
-        <!--            <artifactId>jackson-databind-nullable</artifactId>-->
-        <!--        </dependency>-->
-        <!--        &lt;!&ndash; uncomment and remove springfox-swagger2 when the generator finally support generating-->
-        <!--             io.swagger.v3.annotations &ndash;&gt;-->
-        <!--        &lt;!&ndash;        <dependency>&ndash;&gt;-->
-        <!--        &lt;!&ndash;            <groupId>io.swagger.core.v3</groupId>&ndash;&gt;-->
-        <!--        &lt;!&ndash;            <artifactId>swagger-core</artifactId>&ndash;&gt;-->
-        <!--        &lt;!&ndash;        </dependency>&ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>io.springfox</groupId>-->
-        <!--            <artifactId>springfox-swagger2</artifactId>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.springframework.boot</groupId>-->
-        <!--            <artifactId>spring-boot-starter-web</artifactId>-->
-        <!--        </dependency>-->
     </dependencies>
 
 
@@ -162,7 +111,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.build.directory}/openapi/ingestapi.yaml
+                            <inputSpec>${project.build.directory}/openapi/openapi.yaml
                             </inputSpec>
                             <generatorName>java</generatorName>
                             <apiPackage>${root.package}.stub</apiPackage>

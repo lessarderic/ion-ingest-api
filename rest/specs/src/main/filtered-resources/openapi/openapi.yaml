@@ -51,6 +51,8 @@ paths:
           $ref: '#/components/responses/Forbidden'
         '501':
           $ref: '#/components/responses/NotImplemented'
+        'default':
+          $ref: '#/components/responses/DefaultError'
 components:
   requestBodies:
     IngestRequest:
@@ -149,39 +151,48 @@ components:
           summary: A development version
   schemas:
     Product:
-      description: The JSON description of the Product being ingested
+      description: The JSON description of the Product being ingested.
       type: object
       properties:
+
         productInfo:
-          type: object
-          properties:
-            title:
-              type: string
-              description: The title of the Product
-              example: A Picture
-            filename:
-              type: string
-              description: The name of the source file
-              example: product.jpeg
-            bytes:
-              type: integer
-              description: The size of the file payload
-              minimum: 0
-              exclusiveMinimum: true
-              example: 1024
-            mime-type:
-              type: string
-              description: The MIME type of the file being sent
-              example: image/jpeg
-          required:
-            - bytes
-            - mime-type
+          $ref: '#/components/schemas/ProductInfo'
         file:
-          description: The actual file attachments that are sent in the request
-          type: string
-          format: binary
+          $ref: '#/components/schemas/File'
       required:
-        - json
+        - productInfo
+        - file
+    ProductInfo:
+        properties:
+          title:
+            type: string
+            minLength: 1
+            description: The title of the Product.
+            example: A Picture
+          filename:
+            type: string
+            minLength: 1
+            description: The name of the source file.
+            example: product.jpeg
+          bytes:
+            type: integer
+            description: The size of the file payload.
+            format: int32
+            minimum: 0
+            exclusiveMinimum: true
+            example: 1024
+          mimeType:
+            type: string
+            description: The MIME type of the file being sent.
+            example: image/jpeg
+        required:
+          - filename
+          - bytes
+          - mimeType
+    File:
+      description: The actual file attachment that is sent in the request.
+      type: string
+      format: binary
     Version:
       description: Version number.
       type: string

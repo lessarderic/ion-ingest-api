@@ -71,7 +71,7 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.build.directory}/openapi/ingestapi.yaml
+                            <inputSpec>${project.build.directory}/openapi/openapi.yaml
                             </inputSpec>
                             <generatorName>html2</generatorName>
                             <generateApis>false</generateApis>

@@ -34,8 +34,7 @@
     <modules>
         <module>specs</module>
         <module>docs</module>
-        <!-- Uncomment when we add clients -->
-        <!--<module>clients</module>-->
+        <module>clients</module>
         <module>servers</module>
     </modules>
 </project>

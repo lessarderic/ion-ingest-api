@@ -43,10 +43,9 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
-                            <inputSpec>${project.build.directory}/classes/openapi/ingestapi.yaml
+                            <inputSpec>${project.build.directory}/classes/openapi/openapi.yaml
                             </inputSpec>
                             <!-- Need to select a generator for the validation to be performed -->
-                            <!--                            <generatorName>html2</generatorName>-->
                             <generatorName>openapi-yaml</generatorName>
                             <!-- Turn off as much of the code generation as possible
                                  since we're only trying to validate the API -->
