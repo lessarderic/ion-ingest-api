@@ -1,0 +1,221 @@
+# /**
+#  * Copyright (c) Connexta
+#  *
+#  * <p>This is free software: you can redistribute it and/or modify it under the terms of the GNU
+#  * Lesser General Public License as published by the Free Software Foundation, either version 3 of
+#  * the License, or any later version.
+#  *
+#  * <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+#  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  * GNU Lesser General Public License for more details. A copy of the GNU Lesser General Public
+#  * License is distributed along with this program and can be found at
+#  * <http://www.gnu.org/licenses/lgpl.html>.
+#  */
+openapi: 3.0.2
+
+info:
+  version: ${project.version}
+  title: ${project.name}
+  description: >
+    The Ingest API is defined to provide clients with the ability to
+    ingest products for storage and query capabilities.
+  contact:
+    name: Connexta
+  license:
+    name: GNU Lesser General Public License
+    url: 'http://www.gnu.org/licenses/lgpl.html'
+
+servers:
+  - url: ${rest.server.url}
+
+paths:
+  /ingest:
+    post:
+      summary: Ingest endpoint for products.
+      description: >
+        A system can use the Ingest endpoint to send one or more attachments
+        and a JSON description of a product.
+      operationId: ingest
+      tags:
+        - ingest
+      parameters:
+        - $ref: '#/components/parameters/Accept-Version'
+      requestBody:
+        $ref: '#/components/requestBodies/IngestRequest'
+      responses:
+        '202':
+          $ref: '#/components/responses/Accepted'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '501':
+          $ref: '#/components/responses/NotImplemented'
+components:
+  requestBodies:
+    IngestRequest:
+      required: true
+      description: >
+        The body of the ingest request that contains a JSON blob that
+        describes the attached file(s)
+      content:
+        multipart/form-data:
+          schema:
+            $ref: '#/components/schemas/Product'
+  responses:
+    Accepted:
+      description: >
+        The ingest request was accepted and ION will begin processing and storing the product.
+      headers:
+        'Content-Version':
+          $ref: '#/components/headers/ContentVersion'
+    Unauthorized:
+      description: >
+        The client could not be authenticated.
+      headers:
+        'Content-Version':
+          $ref: '#/components/headers/ContentVersion'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+    Forbidden:
+        description: >
+          The client does not have permission.
+        headers:
+          'Content-Version':
+            $ref: '#/components/headers/ContentVersion'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorMessage'
+    NotImplemented:
+      description: >
+        The requested API version is not supported and therefore not implemented.
+      headers:
+        'Content-Version':
+          $ref: '#/components/headers/ContentVersion'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+    BadRequest:
+      description: >
+        The client message could not understood by the server due to invalid format or syntax.
+      headers:
+        'Content-Version':
+          $ref: '#/components/headers/ContentVersion'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+    DefaultError:
+      description: >
+        Any other possible errors not currently known.
+      headers:
+        'Content-Version':
+          $ref: '#/components/headers/ContentVersion'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+  parameters:
+    Accept-Version:
+      name: Accept-Version
+      in: header
+      description: >
+        The minimal API version that a client using this API will accept
+        responses from.
+      required: true
+      schema:
+        $ref: '#/components/schemas/Version'
+  headers:
+    ContentVersion:
+      description: >
+        The API version used by the server to produce the REST message. The server will accept
+        messages for any minor versions prior to this one.
+      required: true
+      schema:
+        $ref: '#/components/schemas/Version'
+      examples:
+        major.minor:
+          value: '1.2'
+          summary: A released minor version
+        major.minor.patch:
+          value: '1.0.3'
+          summary: A patched version
+        dev:
+          value: '1.2.0-SNAPSHOT'
+          summary: A development version
+  schemas:
+    Product:
+      description: The JSON description of the Product being ingested
+      type: object
+      properties:
+        productInfo:
+          type: object
+          properties:
+            title:
+              type: string
+              description: The title of the Product
+              example: A Picture
+            filename:
+              type: string
+              description: The name of the source file
+              example: product.jpeg
+            bytes:
+              type: integer
+              description: The size of the file payload
+              minimum: 0
+              exclusiveMinimum: true
+              example: 1024
+            mime-type:
+              type: string
+              description: The MIME type of the file being sent
+              example: image/jpeg
+          required:
+            - bytes
+            - mime-type
+        file:
+          description: The actual file attachments that are sent in the request
+          type: string
+          format: binary
+      required:
+        - json
+    Version:
+      description: Version number.
+      type: string
+      minLength: 3
+      pattern: '^([1-9]([0-9]+)?)\.(0|([1-9]([0-9]+)?))(\.(0|([1-9]([0-9]+)?))(-.*)?)?$'
+      example: 1.2, 2.4.3, 0.2.5-SNAPSHOT
+    ErrorMessage:
+      description: Error message information.
+      type: object
+      required:
+        - status
+        - message
+      properties:
+        status:
+          type: integer
+          format: int32
+          description: The corresponding HTTP status code.
+          example: 200
+        code:
+          type: integer
+          format: int32
+          description: >
+            An optional more specific code corresponding to the error (specific codes need to be
+            documented).
+        message:
+          type: string
+          description: Information about the error.
+          minLength: 1
+        details:
+          type: array
+          items:
+            type: string
+          description: Optional detailed information about the error.
+        path:
+          type: string
+          description: The path for the REST request that generated this error.
+          example: /ingest
