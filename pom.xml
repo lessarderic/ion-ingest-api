@@ -95,6 +95,7 @@
         <resources.plugin.version>3.1.0</resources.plugin.version>
         <source.plugin.version>3.0.1</source.plugin.version>
         <surefire.plugin.version>3.0.0-M3</surefire.plugin.version>
+        <failsafe.plugin.version>3.0.0-M3</failsafe.plugin.version>
 
         <!-- Gitflow Incremental Builder Properties -->
         <gib.baseBranch>HEAD</gib.baseBranch>
@@ -281,80 +282,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <profiles>
-        <profile>
-            <id>Java 11 Profile</id>
-            <activation>
-                <jdk>11</jdk>
-            </activation>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-compiler-plugin</artifactId>
-                            <version>${compiler.plugin.version}</version>
-                            <configuration>
-                                <release>${java.version}</release>
-                            </configuration>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-surefire-plugin</artifactId>
-                            <version>${surefire.plugin.version}</version>
-                            <configuration>
-                                <argLine>--illegal-access=permit</argLine>
-                            </configuration>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-failsafe-plugin</artifactId>
-                            <version>${failsafe.plugin.version}</version>
-                            <configuration>
-                                <argLine>--illegal-access=permit</argLine>
-                            </configuration>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
-            <dependencies>
-                <dependency>
-                    <groupId>javax.annotation</groupId>
-                    <artifactId>javax.annotation-api</artifactId>
-                    <version>${annotation.api.version}</version>
-                </dependency>
-            </dependencies>
-        </profile>
-        <profile>
-            <id>Java 8 Profile</id>
-            <activation>
-                <jdk>8</jdk>
-            </activation>
-            <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-compiler-plugin</artifactId>
-                            <version>${compiler.plugin.version}</version>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-surefire-plugin</artifactId>
-                            <version>${surefire.plugin.version}</version>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-failsafe-plugin</artifactId>
-                            <version>${failsafe.plugin.version}</version>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
-            </build>
-        </profile>
-    </profiles>
-
     <dependencies>
         <dependency>
             <groupId>org.codice.test</groupId>
@@ -538,6 +465,30 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${compiler.plugin.version}</version>
+                <configuration>
+                    <release>${java.version}</release>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${surefire.plugin.version}</version>
+                <configuration>
+                    <argLine>--illegal-access=permit</argLine>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>${failsafe.plugin.version}</version>
+                <configuration>
+                    <argLine>--illegal-access=permit</argLine>
+                </configuration>
             </plugin>
         </plugins>
     </build>
