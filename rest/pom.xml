@@ -22,19 +22,26 @@
     <parent>
         <groupId>com.connexta.ingest</groupId>
         <artifactId>ingest-api</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.1.0-SNAPSHOT</version>
     </parent>
 
     <name>Ingest Rest API</name>
 
     <artifactId>ingest-api-rest</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+
+    <properties>
+        <rest.server.url>https://ion:1234</rest.server.url>
+        <rest.package>${root.package}.rest</rest.package>
+        <rest.models.package>${root.package}.rest.models</rest.models.package>
+    </properties>
 
     <modules>
         <module>specs</module>
         <module>docs</module>
-        <module>clients</module>
+        <module>models</module>
         <module>servers</module>
+        <module>clients</module>
     </modules>
 </project>

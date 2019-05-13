@@ -21,13 +21,13 @@
 
     <parent>
         <groupId>com.connexta.ingest</groupId>
-        <artifactId>ingest-api-rest-clients</artifactId>
+        <artifactId>ingest-api-rest-servers</artifactId>
         <version>0.1.0-SNAPSHOT</version>
     </parent>
 
-    <name>Ingest Rest-Assured Client</name>
+    <name>Ingest Rest Spring Stubs</name>
 
-    <artifactId>ingest-api-rest-assured-client</artifactId>
+    <artifactId>ingest-api-rest-spring-stubs</artifactId>
     <version>0.1.0-SNAPSHOT</version>
 
     <dependencies>
@@ -37,13 +37,28 @@
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
-
         <dependency>
             <groupId>com.connexta.ingest</groupId>
             <artifactId>ingest-api-rest-models</artifactId>
             <version>${project.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.immutables</groupId>
+            <artifactId>value</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+        </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
@@ -60,35 +75,24 @@
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
         </dependency>
+        <!-- uncomment and remove springfox-swagger2 when the generator finally support generating
+             io.swagger.v3.annotations -->
+        <!--        <dependency>-->
+        <!--            <groupId>io.swagger.core.v3</groupId>-->
+        <!--            <artifactId>swagger-core</artifactId>-->
+        <!--        </dependency>-->
         <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.gsonfire</groupId>
-            <artifactId>gson-fire</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.swagger</groupId>
-            <artifactId>swagger-annotations</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.squareup.okio</groupId>
-            <artifactId>okio</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     </dependencies>
 
-
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.apache.servicemix.tooling</groupId>
-                <artifactId>depends-maven-plugin</artifactId>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
@@ -119,28 +123,27 @@
                         <configuration>
                             <inputSpec>${project.build.directory}/openapi/openapi.yaml
                             </inputSpec>
-                            <generatorName>java</generatorName>
+                            <generatorName>spring</generatorName>
+                            <apiPackage>${root.package}.stub</apiPackage>
                             <configOptions>
-                                <library>rest-assured</library>
                                 <java11>true</java11>
                                 <dateLibrary>java11</dateLibrary>
+                                <useTags>true</useTags>
+                                <interfaceOnly>true</interfaceOnly>
+                                <useOptional>true</useOptional>
                                 <booleanGetterPrefix>is</booleanGetterPrefix>
+                                <sortParamsByRequiredFlag>true</sortParamsByRequiredFlag>
                                 <useBeanValidation>true</useBeanValidation>
-                                <performBeanValidation>true</performBeanValidation>
+                                <performBeanValidation>false</performBeanValidation>
                                 <sourceFolder>src/main/java</sourceFolder>
                             </configOptions>
                             <modelPackage>${rest.models.package}</modelPackage>
-                            <apiPackage>${rest.package}.restassured</apiPackage>
-                            <invokerPackage>${rest.package}.restassured.invoker</invokerPackage>
+                            <apiPackage>${rest.package}.spring</apiPackage>
                             <generateApis>true</generateApis>
-                            <generateApiDocumentation>false</generateApiDocumentation>
                             <generateApiTests>false</generateApiTests>
                             <generateModels>false</generateModels>
-                            <generateModelTests>false</generateModelTests>
                             <generateSupportingFiles>true</generateSupportingFiles>
-                            <supportingFilesToGenerate>
-                                ApiClient.java,JSON.java,GsonObjectMapper.java
-                            </supportingFilesToGenerate>
+                            <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
                         </configuration>
                     </execution>
                 </executions>

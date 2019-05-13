@@ -22,14 +22,13 @@
     <parent>
         <groupId>com.connexta.ingest</groupId>
         <artifactId>ingest-api-rest</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.1.0-SNAPSHOT</version>
     </parent>
 
     <name>Ingest Rest Documentation</name>
 
-    <groupId>com.connexta.ingest</groupId>
     <artifactId>ingest-api-rest-docs</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <dependencies>

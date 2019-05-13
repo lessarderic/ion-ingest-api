@@ -22,13 +22,13 @@
     <parent>
         <groupId>com.connexta.ingest</groupId>
         <artifactId>ingest-api-rest-servers</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.1.0-SNAPSHOT</version>
     </parent>
 
-    <name>Ingest Rest Spring Boot Server Stubs</name>
+    <name>Ingest Rest Spring Boot Application</name>
 
-    <artifactId>ingest-api-rest-spring-boot-server</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>ingest-api-rest-spring-boot</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
@@ -36,6 +36,11 @@
             <artifactId>ingest-api-rest-specs</artifactId>
             <version>${project.version}</version>
             <type>zip</type>
+        </dependency>
+        <dependency>
+            <groupId>com.connexta.ingest</groupId>
+            <artifactId>ingest-api-rest-models</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -121,23 +126,24 @@
                             <generatorName>spring</generatorName>
                             <apiPackage>${root.package}.stub</apiPackage>
                             <configOptions>
-                                <java8>true</java8>
-                                <dateLibrary>java8</dateLibrary>
-                                <interfaceOnly>true</interfaceOnly>
+                                <library>spring-boot</library>
+                                <java11>true</java11>
+                                <dateLibrary>java11</dateLibrary>
+                                <useTags>true</useTags>
+                                <interfaceOnly>false</interfaceOnly>
                                 <useOptional>true</useOptional>
                                 <booleanGetterPrefix>is</booleanGetterPrefix>
+                                <sortParamsByRequiredFlag>true</sortParamsByRequiredFlag>
                                 <useBeanValidation>true</useBeanValidation>
                                 <performBeanValidation>true</performBeanValidation>
+                                <sourceFolder>src/main/java</sourceFolder>
                             </configOptions>
+                            <modelPackage>${rest.models.package}</modelPackage>
+                            <apiPackage>${rest.package}.spring</apiPackage>
+                            <invokerPackage>${rest.package}.spring.app</invokerPackage>
                             <generateApis>true</generateApis>
-                            <generateApiDocumentation>true</generateApiDocumentation>
-                            <generateApiTests>false</generateApiTests>
-                            <modelPackage>${root.package}.model</modelPackage>
-                            <generateModels>true</generateModels>
-                            <generateModelDocumentation>true</generateModelDocumentation>
-                            <generateModelTests>false</generateModelTests>
+                            <generateModels>false</generateModels>
                             <generateSupportingFiles>true</generateSupportingFiles>
-                            <supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>
                         </configuration>
                     </execution>
                 </executions>

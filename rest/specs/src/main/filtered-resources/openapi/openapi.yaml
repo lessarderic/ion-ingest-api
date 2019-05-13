@@ -15,10 +15,10 @@ openapi: 3.0.2
 
 info:
   version: ${project.version}
-  title: ${project.name}
+  title: ION Ingest API
   description: >
     The Ingest API is defined to provide clients with the ability to
-    ingest products for storage and query capabilities.
+    ingest products for validation, transformation and storage.
   contact:
     name: Connexta
   license:
@@ -166,23 +166,24 @@ components:
           title:
             type: string
             minLength: 1
+            maxLength: 255
             description: The title of the Product.
             example: A Picture
           filename:
             type: string
             minLength: 1
+            maxLength: 255
             description: The name of the source file.
             example: product.jpeg
-          bytes:
+          fileSize:
             type: integer
             description: The size of the file payload.
             format: int32
-            minimum: 0
-            exclusiveMinimum: true
+            minimum: 1
             example: 1024
           mimeType:
             type: string
-            pattern: ^(?=[-a-z]{1,127}/[-\.a-z0-9]{1,127}$)[a-z]+(-[a-z]+)*/[a-z0-9]+([-\.][a-z0-9]+)*$
+            pattern: '^(?=[-a-z]{1,127}/[-\.a-z0-9]{1,127}$)[a-z]+(-[a-z]+)*/[a-z0-9]+([-\.][a-z0-9]+)*$'
             description: The MIME type of the file being sent.
             example: image/jpeg
         required:
@@ -193,10 +194,13 @@ components:
       description: The actual file attachment that is sent in the request.
       type: string
       format: binary
+      minLength: 1
+      maxLength: 255
     Version:
       description: Version number.
       type: string
       minLength: 3
+      maxLength: 80
       pattern: '^([1-9]([0-9]+)?)\.(0|([1-9]([0-9]+)?))(\.(0|([1-9]([0-9]+)?))(-.*)?)?$'
       example: 1.2, 2.4.3, 0.2.5-SNAPSHOT
     ErrorMessage:

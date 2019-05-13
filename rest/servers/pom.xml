@@ -22,16 +22,17 @@
     <parent>
         <groupId>com.connexta.ingest</groupId>
         <artifactId>ingest-api-rest</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.1.0-SNAPSHOT</version>
     </parent>
 
     <name>Ingest Rest Servers</name>
 
     <artifactId>ingest-api-rest-servers</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
+        <module>spring</module>
         <module>spring-boot</module>
     </modules>
 </project>
