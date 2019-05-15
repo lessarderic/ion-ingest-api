@@ -207,9 +207,21 @@ components:
       description: Error message information.
       type: object
       required:
+        - timestamp
+        - path
         - status
+        - error
         - message
       properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: The server time when the error was generated.
+          example: 2019-05-09T14:47:13.101+0000
+        path:
+          type: string
+          description: The path for the REST request that generated this error.
+          example: /ingest
         status:
           type: integer
           format: int32
@@ -221,16 +233,18 @@ components:
           description: >
             An optional more specific code corresponding to the error (specific codes need to be
             documented).
+        error:
+          type: string
+          description: The corresponding HTTP reason phrase.
+          minLength: 1
+          example: Bad Request
         message:
           type: string
-          description: Information about the error.
+          description: Specific information about the error.
           minLength: 1
+          example: Validation failed for object='systemInfo'.
         details:
           type: array
           items:
             type: string
           description: Optional detailed information about the error.
-        path:
-          type: string
-          description: The path for the REST request that generated this error.
-          example: /ingest
