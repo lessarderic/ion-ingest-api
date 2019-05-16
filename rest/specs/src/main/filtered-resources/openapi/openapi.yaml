@@ -178,7 +178,7 @@ components:
           fileSize:
             type: integer
             description: The size of the file payload in bytes. The current maximum is 10GB.
-            format: int32
+            format: int64
             minimum: 1
             maximum: 10737418240
           mimeType:
