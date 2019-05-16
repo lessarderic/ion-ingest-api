@@ -1,0 +1,253 @@
+# /**
+#  * Copyright (c) Connexta
+#  *
+#  * <p>This is free software: you can redistribute it and/or modify it under the terms of the GNU
+#  * Lesser General Public License as published by the Free Software Foundation, either version 3 of
+#  * the License, or any later version.
+#  *
+#  * <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+#  * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+#  * GNU Lesser General Public License for more details. A copy of the GNU Lesser General Public
+#  * License is distributed along with this program and can be found at
+#  * <http://www.gnu.org/licenses/lgpl.html>.
+#  */
+openapi: 3.0.2
+
+info:
+  version: ${project.version}
+  title: ION Ingest API
+  description: >
+    The Ingest API is defined to provide clients with the ability to
+    ingest products for validation, transformation and storage.
+  contact:
+    name: Connexta
+  license:
+    name: GNU Lesser General Public License
+    url: 'http://www.gnu.org/licenses/lgpl.html'
+
+servers:
+  - url: ${rest.server.url}
+
+paths:
+  /ingest:
+    post:
+      summary: Ingest endpoint for products.
+      description: >
+        A system can use the Ingest endpoint to send one or more attachments
+        and a JSON description of a product.
+      operationId: ingest
+      tags:
+        - ingest
+      parameters:
+        - $ref: '#/components/parameters/Accept-Version'
+      requestBody:
+        $ref: '#/components/requestBodies/IngestRequest'
+      responses:
+        '202':
+          $ref: '#/components/responses/Accepted'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '501':
+          $ref: '#/components/responses/NotImplemented'
+        'default':
+          $ref: '#/components/responses/DefaultError'
+components:
+  requestBodies:
+    IngestRequest:
+      required: true
+      description: >
+        The body of the ingest request that contains a JSON blob that
+        describes the attached file(s)
+      content:
+        multipart/form-data:
+          schema:
+            $ref: '#/components/schemas/Product'
+  responses:
+    Accepted:
+      description: >
+        The ingest request was accepted and ION will begin processing and storing the product.
+      headers:
+        'Content-Version':
+          $ref: '#/components/headers/ContentVersion'
+    Unauthorized:
+      description: >
+        The client could not be authenticated.
+      headers:
+        'Content-Version':
+          $ref: '#/components/headers/ContentVersion'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+    Forbidden:
+        description: >
+          The client does not have permission.
+        headers:
+          'Content-Version':
+            $ref: '#/components/headers/ContentVersion'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ErrorMessage'
+    NotImplemented:
+      description: >
+        The requested API version is not supported and therefore not implemented.
+      headers:
+        'Content-Version':
+          $ref: '#/components/headers/ContentVersion'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+    BadRequest:
+      description: >
+        The client message could not understood by the server due to invalid format or syntax.
+      headers:
+        'Content-Version':
+          $ref: '#/components/headers/ContentVersion'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+    DefaultError:
+      description: >
+        Any other possible errors not currently known.
+      headers:
+        'Content-Version':
+          $ref: '#/components/headers/ContentVersion'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
+  parameters:
+    Accept-Version:
+      name: Accept-Version
+      in: header
+      description: >
+        The minimal API version that a client using this API will accept
+        responses from.
+      required: true
+      schema:
+        $ref: '#/components/schemas/Version'
+  headers:
+    ContentVersion:
+      description: >
+        The API version used by the server to produce the REST message. The server will accept
+        messages for any minor versions prior to this one.
+      required: true
+      schema:
+        $ref: '#/components/schemas/Version'
+      examples:
+        major.minor:
+          value: '1.2'
+          summary: A released minor version
+        major.minor.patch:
+          value: '1.0.3'
+          summary: A patched version
+        dev:
+          value: '1.2.0-SNAPSHOT'
+          summary: A development version
+  schemas:
+    Product:
+      description: The JSON description of the Product being ingested.
+      type: object
+      properties:
+        productInfo:
+          $ref: '#/components/schemas/ProductInfo'
+        file:
+          $ref: '#/components/schemas/File'
+      required:
+        - productInfo
+        - file
+    ProductInfo:
+        properties:
+          title:
+            type: string
+            minLength: 1
+            maxLength: 255
+            description: The title of the Product.
+            example: A Picture
+          filename:
+            type: string
+            minLength: 1
+            maxLength: 255
+            description: The name of the source file.
+            example: product.jpeg
+          fileSize:
+            type: integer
+            description: The size of the file payload in bytes. The current maximum is 10GB.
+            format: int64
+            minimum: 1
+            maximum: 10737418240
+            example: 1048576
+          mimeType:
+            type: string
+            pattern: '^(?=[-a-z]{1,127}/[-\.a-z0-9]{1,127}$)[a-z]+(-[a-z]+)*/[a-z0-9]+([-\.][a-z0-9]+)*$'
+            description: The MIME type of the file being sent.
+            example: image/jpeg
+        required:
+          - filename
+          - bytes
+          - mimeType
+    File:
+      description: >
+        The actual file attachment that is sent in the request. The current maximum is the character
+        equivalent of 10GB.
+      type: string
+      format: binary
+      minLength: 1
+      maxLength: 14316557655
+    Version:
+      description: Version number.
+      type: string
+      minLength: 3
+      maxLength: 80
+      pattern: '^([1-9]([0-9]+)?)\.(0|([1-9]([0-9]+)?))(\.(0|([1-9]([0-9]+)?))(-.*)?)?$'
+      example: 1.2, 2.4.3, 0.2.5-SNAPSHOT
+    ErrorMessage:
+      description: Error message information.
+      type: object
+      required:
+        - timestamp
+        - path
+        - status
+        - error
+        - message
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          description: The server time when the error was generated.
+          example: 2019-05-09T14:47:13.101+0000
+        path:
+          type: string
+          description: The path for the REST request that generated this error.
+          example: /ingest
+        status:
+          type: integer
+          format: int32
+          description: The corresponding HTTP status code.
+          example: 200
+        code:
+          type: integer
+          format: int32
+          description: >
+            An optional more specific code corresponding to the error (specific codes need to be
+            documented).
+        error:
+          type: string
+          description: The corresponding HTTP reason phrase.
+          minLength: 1
+          example: Bad Request
+        message:
+          type: string
+          description: Specific information about the error.
+          minLength: 1
+          example: Validation failed for object='systemInfo'.
+        details:
+          type: array
+          items:
+            type: string
+          description: Optional detailed information about the error.

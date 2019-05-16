@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * Copyright (c) Connexta
+ *
+ * <p>This is free software: you can redistribute it and/or modify it under the terms of the GNU
+ * Lesser General Public License as published by the Free Software Foundation, either version 3 of
+ * the License, or any later version.
+ *
+ * <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Lesser General Public License for more details. A copy of the GNU Lesser General Public
+ * License is distributed along with this program and can be found at
+ * <http://www.gnu.org/licenses/lgpl.html>.
+ */
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.connexta.ingest</groupId>
+        <artifactId>ingest-api</artifactId>
+        <version>0.1.0-SNAPSHOT</version>
+    </parent>
+
+    <name>Ingest Rest API</name>
+
+    <artifactId>ingest-api-rest</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <properties>
+        <rest.server.url>https://ion:1234</rest.server.url>
+        <rest.package>${root.package}.rest</rest.package>
+        <rest.models.package>${root.package}.rest.models</rest.models.package>
+    </properties>
+
+    <modules>
+        <module>specs</module>
+        <module>docs</module>
+        <module>models</module>
+        <module>servers</module>
+        <module>clients</module>
+    </modules>
+</project>
