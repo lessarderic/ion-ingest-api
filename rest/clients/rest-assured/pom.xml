@@ -122,8 +122,8 @@
                             <generatorName>java</generatorName>
                             <configOptions>
                                 <library>rest-assured</library>
-                                <java11>true</java11>
-                                <dateLibrary>java11</dateLibrary>
+                                <java8>true</java8>
+                                <dateLibrary>java8</dateLibrary>
                                 <booleanGetterPrefix>is</booleanGetterPrefix>
                                 <useBeanValidation>true</useBeanValidation>
                                 <performBeanValidation>true</performBeanValidation>

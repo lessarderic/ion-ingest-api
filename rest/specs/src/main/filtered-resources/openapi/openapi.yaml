@@ -177,10 +177,10 @@ components:
             example: product.jpeg
           fileSize:
             type: integer
-            description: The size of the file payload.
+            description: The size of the file payload in bytes.
             format: int32
             minimum: 1
-            example: 1024
+            example: 10000000000
           mimeType:
             type: string
             pattern: '^(?=[-a-z]{1,127}/[-\.a-z0-9]{1,127}$)[a-z]+(-[a-z]+)*/[a-z0-9]+([-\.][a-z0-9]+)*$'

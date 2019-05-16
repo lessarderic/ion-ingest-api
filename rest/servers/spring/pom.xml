@@ -126,8 +126,8 @@
                             <generatorName>spring</generatorName>
                             <apiPackage>${root.package}.stub</apiPackage>
                             <configOptions>
-                                <java11>true</java11>
-                                <dateLibrary>java11</dateLibrary>
+                                <java8>true</java8>
+                                <dateLibrary>java8</dateLibrary>
                                 <useTags>true</useTags>
                                 <interfaceOnly>true</interfaceOnly>
                                 <useOptional>true</useOptional>
