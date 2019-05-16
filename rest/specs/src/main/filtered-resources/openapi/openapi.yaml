@@ -195,7 +195,7 @@ components:
       type: string
       format: binary
       minLength: 1
-      maxLength: 255
+      maxLength: 10000000000
     Version:
       description: Version number.
       type: string
