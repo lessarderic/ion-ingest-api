@@ -52,7 +52,7 @@ paths:
                   maxLength: 255
                   description: The title of the Product.
                   example: A Picture
-                filename:
+                fileName:
                   type: string
                   minLength: 1
                   maxLength: 255
