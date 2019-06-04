@@ -20,13 +20,13 @@
     <parent>
         <groupId>com.connexta.ingest</groupId>
         <artifactId>ingest-api-rest-clients</artifactId>
-        <version>0.1.0</version>
+        <version>0.1.1-SNAPSHOT</version>
     </parent>
 
     <name>Ingest Rest-Assured Client</name>
 
     <artifactId>ingest-api-rest-assured-client</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
