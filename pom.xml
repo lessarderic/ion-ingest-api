@@ -32,16 +32,16 @@
 
     <groupId>com.connexta.ingest</groupId>
     <artifactId>ingest-api</artifactId>
-    <version>0.1.1-SNAPSHOT</version>
+    <version>0.1.1</version>
     <packaging>pom</packaging>
 
     <properties>
         <root.package>com.connexta.ingest</root.package>
 
         <!--  Default URL properties -->
-        <codice.scm.connection.url/>
-        <snapshots.repository.url/>
-        <reports.repository.url/>
+        <codice.scm.connection.url />
+        <snapshots.repository.url />
+        <reports.repository.url />
 
         <!-- Build properties -->
         <java.version>11</java.version>
@@ -106,7 +106,7 @@
         <connection>scm:git:https://github.com/connexta/ion-ingest-api.git</connection>
         <developerConnection>scm:git:https://github.com/connext/ion-ingest-api.git
         </developerConnection>
-        <tag>HEAD</tag>
+        <tag>ion-ingest-api-0.1.1</tag>
     </scm>
 
     <distributionManagement>
