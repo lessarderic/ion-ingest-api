@@ -30,6 +30,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>rest-assured</module>
+        <module>cxf</module>
     </modules>
 </project>

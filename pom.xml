@@ -39,9 +39,9 @@
         <root.package>com.connexta.ingest</root.package>
 
         <!--  Default URL properties -->
-        <codice.scm.connection.url />
-        <snapshots.repository.url />
-        <reports.repository.url />
+        <codice.scm.connection.url/>
+        <snapshots.repository.url/>
+        <reports.repository.url/>
 
         <!-- Build properties -->
         <java.version>11</java.version>
@@ -55,19 +55,17 @@
         <annotation.api.version>1.3.2</annotation.api.version>
         <cxf.version>3.3.1</cxf.version>
         <jsr305.version>3.0.2_1</jsr305.version>
-        <guava.version>23.0</guava.version>
+        <guava.version>27.1-jre</guava.version>
         <gson.fire.version>1.8.2</gson.fire.version>
         <gson.version>2.6.1</gson.version>
         <hibernate.validator.version>6.0.16.Final</hibernate.validator.version>
         <immutables.version>2.7.1</immutables.version>
         <jackson.databind.nullable.version>0.1.0</jackson.databind.nullable.version>
-        <jackson.version>2.9.8</jackson.version>
+        <jackson.version>2.9.9</jackson.version>
         <micrometer.version>1.0.6</micrometer.version>
         <okio.version>1.13.0</okio.version>
-        <rest.assured.version>3.1.0</rest.assured.version>
         <slf4j.version>1.7.25</slf4j.version>
-        <spring.boot.version>2.1.4.RELEASE</spring.boot.version>
-        <spring.version>5.1.6.RELEASE</spring.version>
+        <spring.boot.version>2.1.5.RELEASE</spring.boot.version>
         <swagger.v3.version>2.0.8</swagger.v3.version>
         <swagger.version>1.5.22</swagger.version>
         <springfox.version>2.9.2</springfox.version>
@@ -106,10 +104,10 @@
     <scm>
         <url>https://github.com/connexta/ion-ingest-api</url>
         <connection>scm:git:https://github.com/connexta/ion-ingest-api.git</connection>
-        <developerConnection>scm:git:https://github.com/connext/ion-ingest-api.git</developerConnection>
+        <developerConnection>scm:git:https://github.com/connext/ion-ingest-api.git
+        </developerConnection>
         <tag>HEAD</tag>
     </scm>
-
 
     <distributionManagement>
         <!--
@@ -213,11 +211,50 @@
                 <version>${validation.api.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-rs-client</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-rs-service-description</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-ws-policy</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.cxf</groupId>
+                <artifactId>cxf-rt-wsdl</artifactId>
+                <version>${cxf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-core</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.fasterxml.jackson.jaxrs</groupId>
                 <artifactId>jackson-jaxrs-json-provider</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
-
             <dependency>
                 <groupId>org.openapitools</groupId>
                 <artifactId>jackson-databind-nullable</artifactId>
@@ -281,11 +318,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-actuator</artifactId>
                 <version>${spring.boot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.rest-assured</groupId>
-                <artifactId>rest-assured</artifactId>
-                <version>${rest.assured.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -506,6 +538,21 @@
                         <id>generate-depends-file</id>
                         <goals>
                             <goal>generate-depends-file</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <version>5.0.0-M3</version>
+                <configuration>
+                    <failBuildOnCVSS>4</failBuildOnCVSS>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
                         </goals>
                     </execution>
                 </executions>

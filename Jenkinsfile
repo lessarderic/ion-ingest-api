@@ -109,27 +109,6 @@ pipeline {
                 }
             }
         }
-        stage('Security Analysis') {
-            parallel {
-                stage ('Owasp') {
-                    steps {
-                        withMaven(maven: 'Maven 3.5.4', jdk: 'jdk11', globalMavenSettingsConfig: 'default-global-settings', mavenSettingsConfig: 'codice-maven-settings', mavenOpts: '${LINUX_MVN_RANDOM}') {
-                            // If this build is not a pull request, run full owasp scan. Otherwise run incremental scan
-                            script {
-                                if (params.RELEASE == true) {
-                                    sh "git checkout ${env.RELEASE_TAG}"
-                                }
-                                if (env.CHANGE_ID == null) {
-                                    sh 'mvn install -B -Powasp -DskipTests=true -nsu $DISABLE_DOWNLOAD_PROGRESS_OPTS'
-                                } else {
-                                    sh 'mvn install -B -Powasp -DskipTests=true  -Dgib.enabled=true -Dgib.referenceBranch=/refs/remotes/origin/$CHANGE_TARGET -nsu $DISABLE_DOWNLOAD_PROGRESS_OPTS'
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
         stage('Quality Analysis') {
             parallel {
                 // Sonar stage only runs against master

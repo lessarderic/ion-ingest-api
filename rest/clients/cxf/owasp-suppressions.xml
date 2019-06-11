@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.2.xsd">
+    <suppress>
+        <!-- Jackson vulnerability, nothing to do with jackson-databind-nullable -->
+        <notes><![CDATA[
+        file name: jackson-databind-nullable-0.1.0.jar
+        ]]></notes>
+        <gav regex="true">^org\.openapitools:jackson-databind-nullable:0.1.0$</gav>
+        <cpe>cpe:/a:fasterxml:jackson</cpe>
+    </suppress>
+    <suppress>
+        <!-- Vulnerabilities related to Gradle, not springfox -->
+        <notes><![CDATA[
+        file name: springfox-*-2.9.2.jar
+        ]]></notes>
+        <gav regex="true">^io\.springfox:springfox-.*:.*$</gav>
+        <cpe>cpe:/a:gradle:gradle</cpe>
+    </suppress>
+    <suppress>
+        <!--
+            Spring framework vulnerabilities in version prior to 4.0. Does not apply to
+            spring-plugin dependencies.
+        -->
+        <notes><![CDATA[
+        file name: spring-plugin-*-1.2.0.RELEASE.jar
+        ]]></notes>
+        <gav regex="true">^org\.springframework\.plugin:spring-plugin-.*:1\.2\.0.*$</gav>
+        <cpe>cpe:/a:springsource:spring_framework</cpe>
+        <cpe>cpe:/a:pivotal_software:spring_framework</cpe>
+    </suppress>
+</suppressions>

@@ -23,9 +23,9 @@
         <version>0.1.1-SNAPSHOT</version>
     </parent>
 
-    <name>Ingest Rest-Assured Client</name>
+    <name>Ingest JAX-RS CXF Client</name>
 
-    <artifactId>ingest-api-rest-assured-client</artifactId>
+    <artifactId>ingest-api-cxf-client</artifactId>
     <version>0.1.1-SNAPSHOT</version>
 
     <dependencies>
@@ -51,32 +51,32 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.fasterxml.jackson.jaxrs</groupId>
+            <artifactId>jackson-jaxrs-json-provider</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.openapitools</groupId>
             <artifactId>jackson-databind-nullable</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.hibernate.validator</groupId>
-            <artifactId>hibernate-validator</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.gsonfire</groupId>
-            <artifactId>gson-fire</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.rest-assured</groupId>
-            <artifactId>rest-assured</artifactId>
-        </dependency>
-        <dependency>
             <groupId>io.swagger</groupId>
-            <artifactId>swagger-annotations</artifactId>
+            <artifactId>swagger-jaxrs</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.squareup.okio</groupId>
-            <artifactId>okio</artifactId>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-frontend-jaxrs</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-rs-service-description</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-ws-policy</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-wsdl</artifactId>
         </dependency>
     </dependencies>
 
@@ -117,31 +117,34 @@
                         <configuration>
                             <inputSpec>${project.build.directory}/openapi/openapi.yaml
                             </inputSpec>
-                            <generatorName>java</generatorName>
+                            <generatorName>jaxrs-cxf-client</generatorName>
                             <configOptions>
-                                <library>rest-assured</library>
                                 <java8>true</java8>
                                 <dateLibrary>java8</dateLibrary>
                                 <booleanGetterPrefix>is</booleanGetterPrefix>
                                 <useBeanValidation>true</useBeanValidation>
-                                <performBeanValidation>true</performBeanValidation>
                                 <sourceFolder>src/main/java</sourceFolder>
                             </configOptions>
                             <modelPackage>${rest.models.package}</modelPackage>
-                            <apiPackage>${rest.package}.restassured</apiPackage>
-                            <invokerPackage>${rest.package}.restassured.invoker</invokerPackage>
+                            <apiPackage>${rest.package}.cxf.client</apiPackage>
+                            <invokerPackage>${rest.package}.cxf.client.invoker</invokerPackage>
                             <generateApis>true</generateApis>
-                            <generateApiDocumentation>false</generateApiDocumentation>
+                            <generateApiDocumentation>true</generateApiDocumentation>
                             <generateApiTests>false</generateApiTests>
                             <generateModels>false</generateModels>
-                            <generateModelTests>false</generateModelTests>
-                            <generateSupportingFiles>true</generateSupportingFiles>
-                            <supportingFilesToGenerate>
-                                ApiClient.java,JSON.java,GsonObjectMapper.java
-                            </supportingFilesToGenerate>
+                            <generateSupportingFiles>false</generateSupportingFiles>
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.owasp</groupId>
+                <artifactId>dependency-check-maven</artifactId>
+                <configuration>
+                    <suppressionFiles>
+                        <suppressionFile>${basedir}/owasp-suppressions.xml</suppressionFile>
+                    </suppressionFiles>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
