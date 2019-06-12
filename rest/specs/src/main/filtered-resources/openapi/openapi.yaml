@@ -81,7 +81,7 @@ paths:
 
               required:
                 - file
-                - filename
+                - fileName
                 - fileSize
                 - mimeType
       responses:
