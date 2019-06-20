@@ -72,12 +72,10 @@
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
         </dependency>
-        <!-- uncomment and remove springfox-swagger2 when the generator finally support generating
-             io.swagger.v3.annotations -->
-        <!--        <dependency>-->
-        <!--            <groupId>io.swagger.core.v3</groupId>-->
-        <!--            <artifactId>swagger-core</artifactId>-->
-        <!--        </dependency>-->
+        <!--
+            Replace io.springfox:springfox-swagger2 with io.swagger.core.v3:swagger-core when
+            the generator supports io.swagger.v3.annotations
+        -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
@@ -150,7 +148,7 @@
                 <artifactId>dependency-check-maven</artifactId>
                 <configuration>
                     <suppressionFiles>
-                        <suppressionFile>${basedir}/owasp-suppressions.xml</suppressionFile>
+                        <suppressionFile>${basedir}/owasp/suppressions.xml</suppressionFile>
                     </suppressionFiles>
                 </configuration>
             </plugin>
