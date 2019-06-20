@@ -14,7 +14,9 @@
  * <http://www.gnu.org/licenses/lgpl.html>.
  */
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -34,6 +36,24 @@
         <rest.package>${root.package}.rest</rest.package>
         <rest.models.package>${root.package}.rest.models</rest.models.package>
     </properties>
+
+    <build>
+        <resources>
+            <!--
+                Add any OWASP suppression file (must be named owasp-suppressions.xml) to the JARs
+                created. This will allow projects using those JARs as dependencies to include the
+                file in their OWASP plugin configuration and not have to repeat and maintain the
+                same suppressions.
+            -->
+            <resource>
+                <filtering>false</filtering>
+                <directory>${basedir}</directory>
+                <includes>
+                    <include>owasp-suppressions.xml</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
 
     <modules>
         <module>specs</module>
