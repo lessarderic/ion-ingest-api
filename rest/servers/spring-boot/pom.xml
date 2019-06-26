@@ -20,13 +20,13 @@
     <parent>
         <groupId>com.connexta.ingest</groupId>
         <artifactId>ingest-api-rest-servers</artifactId>
-        <version>0.1.2-SNAPSHOT</version>
+        <version>0.2.0-SNAPSHOT</version>
     </parent>
 
     <name>Ingest Rest Spring Boot Application</name>
 
     <artifactId>ingest-api-rest-spring-boot</artifactId>
-    <version>0.1.2-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
