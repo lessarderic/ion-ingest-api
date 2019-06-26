@@ -28,4 +28,16 @@
         <cpe>cpe:/a:springsource:spring_framework</cpe>
         <cpe>cpe:/a:pivotal_software:spring_framework</cpe>
     </suppress>
+    <suppress>
+        <!--
+            Only present when JDOM 1.x or 2.x jar is in the classpath. JDOM has been excluded in the
+            classpath for this project. When the version of jackson-databind has been updated,
+            remove this suppression and the maven-enforcer-plugin in pom.xml.
+        -->
+        <notes><![CDATA[
+        file name: jackson-databind-2.9.9.jar
+        ]]></notes>
+        <gav regex="true">^com\.fasterxml\.jackson\.core:jackson-databind:.*$</gav>
+        <cve>CVE-2019-12814</cve>
+    </suppress>
 </suppressions>

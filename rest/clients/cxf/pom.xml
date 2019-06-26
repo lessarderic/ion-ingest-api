@@ -35,13 +35,11 @@
             <version>${project.version}</version>
             <type>zip</type>
         </dependency>
-
         <dependency>
             <groupId>com.connexta.ingest</groupId>
             <artifactId>ingest-api-rest-models</artifactId>
             <version>${project.version}</version>
         </dependency>
-
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
@@ -79,7 +77,6 @@
             <artifactId>cxf-rt-wsdl</artifactId>
         </dependency>
     </dependencies>
-
 
     <build>
         <plugins>
@@ -145,6 +142,34 @@
                         <suppressionFile>${basedir}/owasp-suppressions.xml</suppressionFile>
                     </suppressionFiles>
                 </configuration>
+            </plugin>
+            <!--
+                Fail the build if JDOM is included in the dependencies (including transitive) to
+                address CVE-2019-12814. When the version of jackson-databind has been updated,
+                remove this maven-enforcer-plugin and the suppression in owasp-suppressions.xml.
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.0.0-M2</version>
+                <executions>
+                    <execution>
+                        <id>enforce-banned-dependencies</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <bannedDependencies>
+                                    <excludes>
+                                        <exclude>org.jdom</exclude>
+                                    </excludes>
+                                </bannedDependencies>
+                            </rules>
+                            <fail>true</fail>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

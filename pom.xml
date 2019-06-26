@@ -65,7 +65,7 @@
         <micrometer.version>1.0.6</micrometer.version>
         <okio.version>1.13.0</okio.version>
         <slf4j.version>1.7.25</slf4j.version>
-        <spring.boot.version>2.1.5.RELEASE</spring.boot.version>
+        <spring.boot.version>2.1.6.RELEASE</spring.boot.version>
         <swagger.v3.version>2.0.8</swagger.v3.version>
         <swagger.version>1.5.22</swagger.version>
         <springfox.version>2.9.2</springfox.version>
@@ -545,9 +545,10 @@
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
-                <version>5.0.0-M3</version>
+                <version>5.0.0</version>
                 <configuration>
                     <failBuildOnCVSS>4</failBuildOnCVSS>
+                    <ossindexAnalyzerEnabled>false</ossindexAnalyzerEnabled>
                 </configuration>
                 <executions>
                     <execution>
