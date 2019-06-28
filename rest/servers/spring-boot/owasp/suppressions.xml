@@ -1,33 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) Connexta
+  ~
+  ~ This is free software: you can redistribute it and/or modify it under the terms of the GNU Lesser General Public License
+  ~ as published by the Free Software Foundation, either version 3 of the License, or any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  ~ See the GNU Lesser General Public License for more details. A copy of the GNU Lesser General Public License is distributed along with this program and can be found at
+  ~ <http://www.gnu.org/licenses/lgpl.html>.
+  -->
+<!--
+    Contains the suppressions that should not be inherited by dependent projects.
+-->
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.2.xsd">
-    <suppress>
-        <!-- Jackson vulnerability, nothing to do with jackson-databind-nullable -->
-        <notes><![CDATA[
-        file name: jackson-databind-nullable-0.1.0.jar
-        ]]></notes>
-        <gav regex="true">^org\.openapitools:jackson-databind-nullable:0.1.0$</gav>
-        <cpe>cpe:/a:fasterxml:jackson</cpe>
-    </suppress>
-    <suppress>
-        <!-- Vulnerabilities related to Gradle, not springfox -->
-        <notes><![CDATA[
-        file name: springfox-*-2.9.2.jar
-        ]]></notes>
-        <gav regex="true">^io\.springfox:springfox-.*:.*$</gav>
-        <cpe>cpe:/a:gradle:gradle</cpe>
-    </suppress>
-    <suppress>
-        <!--
-            Spring framework vulnerabilities in version prior to 4.0. Does not apply to
-            spring-plugin dependencies.
-        -->
-        <notes><![CDATA[
-        file name: spring-plugin-*-1.2.0.RELEASE.jar
-        ]]></notes>
-        <gav regex="true">^org\.springframework\.plugin:spring-plugin-.*:1\.2\.0.*$</gav>
-        <cpe>cpe:/a:springsource:spring_framework</cpe>
-        <cpe>cpe:/a:pivotal_software:spring_framework</cpe>
-    </suppress>
     <suppress>
         <!--
             Spring framework vulnerabilities in version prior to 4.0. Does not apply to

@@ -26,7 +26,10 @@ _Maven_
             <artifactId>dependency-check-maven</artifactId>
             <configuration>
                 <suppressionFiles>
-                    <suppressionFile>owasp-suppressions.xml</suppressionFile>
+                    <!-- Suppression file from ingest-api-cxf-client dependency -->
+                    <suppressionFile>owasp/ingest-api-cxf-client/suppressions.xml</suppressionFile>
+                    <!-- Local suppression file -->
+                    <suppressionFile>${basedir}/owasp/suppressions.xml</suppressionFile>
                 </suppressionFiles>
             </configuration>
             <dependencies>
@@ -40,3 +43,7 @@ _Maven_
     </plugins>
 </build>
 ```
+
+_Gradle_
+
+**TODO**

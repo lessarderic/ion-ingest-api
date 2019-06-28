@@ -9,7 +9,9 @@
   ~ See the GNU Lesser General Public License for more details. A copy of the GNU Lesser General Public License is distributed along with this program and can be found at
   ~ <http://www.gnu.org/licenses/lgpl.html>.
   -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
@@ -58,16 +60,16 @@
             <groupId>org.openapitools</groupId>
             <artifactId>jackson-databind-nullable</artifactId>
         </dependency>
-        <!-- uncomment and remove springfox-swagger2 when the generator finally support generatingio.swagger.v3.annotations -->
-        <!--        <dependency>-->
-        <!--            <groupId>io.swagger.core.v3</groupId>-->
-        <!--            <artifactId>swagger-core</artifactId>-->
-        <!--        </dependency>-->
+        <!--
+            Replace io.springfox:springfox-swagger2 with io.swagger.core.v3:swagger-core when
+            the generator supports generatingio.swagger.v3.annotations
+        -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
         </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
@@ -133,7 +135,9 @@
                 <artifactId>dependency-check-maven</artifactId>
                 <configuration>
                     <suppressionFiles>
-                        <suppressionFile>${basedir}/owasp-suppressions.xml</suppressionFile>
+                        <suppressionFile>${basedir}/owasp/suppressions.xml</suppressionFile>
+                        <suppressionFile>${basedir}/owasp/${artifactId}/suppressions.xml
+                        </suppressionFile>
                     </suppressionFiles>
                 </configuration>
             </plugin>

@@ -141,7 +141,9 @@
                 <artifactId>dependency-check-maven</artifactId>
                 <configuration>
                     <suppressionFiles>
-                        <suppressionFile>${basedir}/owasp-suppressions.xml</suppressionFile>
+                        <suppressionFile>${basedir}/owasp/suppressions.xml</suppressionFile>
+                        <suppressionFile>${basedir}/owasp/${artifactId}/suppressions.xml
+                        </suppressionFile>
                     </suppressionFiles>
                 </configuration>
             </plugin>
