@@ -46,12 +46,6 @@ paths:
             schema:
               type: object
               properties:
-                title:
-                  type: string
-                  minLength: 1
-                  maxLength: 255
-                  description: The title of the Product.
-                  example: A Picture
                 fileName:
                   type: string
                   minLength: 1
