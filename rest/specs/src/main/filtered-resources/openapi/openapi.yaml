@@ -41,6 +41,9 @@ paths:
       parameters:
         - $ref: '#/components/parameters/Accept-Version'
       requestBody:
+        required: true
+        description: >
+          The body of the ingest request that includes and describes an attached file(s).
         content:
           multipart/form-data:
             schema:
@@ -72,7 +75,6 @@ paths:
                   format: binary
                   minLength: 1
                   maxLength: 14316557655
-
               required:
                 - file
                 - fileName
@@ -89,17 +91,8 @@ paths:
           $ref: '#/components/responses/NotImplemented'
         'default':
           $ref: '#/components/responses/DefaultError'
+
 components:
-  requestBodies:
-    IngestRequest:
-      required: true
-      description: >
-        The body of the ingest request that contains a JSON blob that
-        describes the attached file(s)
-      content:
-        multipart/form-data:
-          schema:
-            $ref: '#/components/schemas/Product'
   responses:
     Accepted:
       description: >
@@ -118,15 +111,15 @@ components:
           schema:
             $ref: '#/components/schemas/ErrorMessage'
     Forbidden:
-        description: >
-          The client does not have permission.
-        headers:
-          'Content-Version':
-            $ref: '#/components/headers/ContentVersion'
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ErrorMessage'
+      description: >
+        The client does not have permission.
+      headers:
+        'Content-Version':
+          $ref: '#/components/headers/ContentVersion'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorMessage'
     NotImplemented:
       description: >
         The requested API version is not supported and therefore not implemented.
