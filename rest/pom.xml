@@ -42,6 +42,5 @@
         <module>docs</module>
         <module>models</module>
         <module>servers</module>
-        <module>clients</module>
     </modules>
 </project>
