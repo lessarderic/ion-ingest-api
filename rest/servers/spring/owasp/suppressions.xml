@@ -15,6 +15,7 @@
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.2.xsd">
     <suppress>
         <!--
+            [Eric Lessard, 4 July 2019]
             OWASP infers that jackson-databind-nullable 0.1.0 is related to Jackson 0.1.0
             dependencies and flags vulnerabilities on cpe:2.3:a:fasterxml:jackson:0.1.0 and
             cpe:2.3:a:fasterxml:jackson-databind:0.1.0, which do not exist.
@@ -31,6 +32,7 @@
     </suppress>
     <suppress>
         <!--
+            [Emily Berk, 26 June 2019]
             Only present when JDOM 1.x or 2.x jar is in the classpath. JDOM has been excluded in the
             classpath for this project. When the version of jackson-databind has been updated,
             remove this suppression and the maven-enforcer-plugin in pom.xml.
